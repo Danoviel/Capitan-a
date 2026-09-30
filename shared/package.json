@@ -1,0 +1,16 @@
+{
+  "name": "@puertosview/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Contrato entre el servidor y el dashboard: tipos del dominio y constantes",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}

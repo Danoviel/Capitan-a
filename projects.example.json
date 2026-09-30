@@ -1,0 +1,27 @@
+{
+  "protectedPorts": [5432, 5433, 6379, 6380, 7788, 5000, 7000, 5037],
+  "projects": [
+    {
+      "id": "ejemplo-be",
+      "name": "Ejemplo BE",
+      "group": "Ejemplo",
+      "kind": "django",
+      "cwd": "~/Documents/MiProyecto/backend",
+      "command": "source .venv/bin/activate && python manage.py runserver 127.0.0.1:8000",
+      "port": 8000,
+      "notes": "El ~ se guarda literal y se resuelve al lanzar el proceso."
+    },
+    {
+      "id": "ejemplo-fe",
+      "name": "Ejemplo FE",
+      "group": "Ejemplo",
+      "kind": "vite",
+      "cwd": "~/Documents/MiProyecto/frontend",
+      "command": "npm run dev -- --port 5173 --strictPort",
+      "port": 5173,
+      "env": {
+        "VITE_API_BASE_URL": "http://localhost:8000"
+      }
+    }
+  ]
+}

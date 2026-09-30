@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+
+# Configuración local: los paths y comandos son de esta Mac.
+# El servidor prefiere projects.local.json si existe; si no, projects.json.
+projects.local.json
+projects.json
+projects.json.tmp
+
+# Capturas de las pruebas con Playwright
+.playwright-mcp/
+*.png
+
+# Memoria de Claude Code — nunca se sube
+.claude/
