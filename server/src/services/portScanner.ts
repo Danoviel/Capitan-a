@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import type { ListeningProcess } from '@puertosview/shared';
+import type { ListeningProcess } from '@capitania/shared';
 
 const run = promisify(execFile);
 
@@ -69,7 +69,7 @@ export class PortScanner {
 
   /**
    * Carpeta de trabajo de cada PID. Sirve para saber a qué proyecto pertenece un
-   * proceso que PuertosView no lanzó (el comando solo dice "node" o "Python").
+   * proceso que Capitanía no lanzó (el comando solo dice "node" o "Python").
    */
   async cwdOf(pids: number[]): Promise<Map<number, string>> {
     const result = new Map<number, string>();

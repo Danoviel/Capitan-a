@@ -4,12 +4,13 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 import {
+  DEFAULT_SERVER_PORT,
   MAX_PORT,
   MIN_PORT,
   PROJECT_ID_PATTERN,
   PROJECT_KINDS,
   type ProjectConfig,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 
 const here = dirname(fileURLToPath(import.meta.url));
 export const ROOT_DIR = resolve(here, '../../..');
@@ -22,6 +23,13 @@ export function resolveConfigPath(): string {
   const local = resolve(ROOT_DIR, 'projects.local.json');
   return existsSync(local) ? local : resolve(ROOT_DIR, 'projects.json');
 }
+
+/**
+ * Puertos que "liberar puerto" no toca en una instalación nueva: bases de datos,
+ * Redis, el propio servidor y los de AirPlay/Control Center de macOS (5000, 7000).
+ * Cada uno los ajusta después en su `projects.json`.
+ */
+const DEFAULT_PROTECTED_PORTS = [3306, 5432, 6379, 27017, DEFAULT_SERVER_PORT, 5000, 7000];
 
 const linkSchema = z.object({
   label: z.string().min(1),
@@ -86,7 +94,16 @@ export class ProjectRepository {
     return this.#path;
   }
 
+  /** true si todavía no hay archivo: se crea al guardar el primer proyecto. */
+  get isNew(): boolean {
+    return !existsSync(this.#path);
+  }
+
   async load(): Promise<ProjectsFile> {
+    if (this.isNew) {
+      this.#cache = { protectedPorts: DEFAULT_PROTECTED_PORTS, projects: [] };
+      return this.#cache;
+    }
     const raw = await readFile(this.#path, 'utf8');
     const parsed = fileSchema.safeParse(JSON.parse(raw));
     if (!parsed.success) {

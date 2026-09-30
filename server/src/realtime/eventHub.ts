@@ -1,6 +1,6 @@
 import type { IncomingMessage, Server } from 'node:http';
 import { WebSocketServer, WebSocket } from 'ws';
-import type { ServerEvent } from '@puertosview/shared';
+import type { ServerEvent } from '@capitania/shared';
 
 /**
  * Empuja los cambios al dashboard por WebSocket, para que el estado y los logs

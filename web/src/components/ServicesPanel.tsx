@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api/client.ts';
-import type { BrewServiceInfo, DockerContainerInfo, ServiceAction } from '@puertosview/shared';
+import type { BrewServiceInfo, DockerContainerInfo, ServiceAction } from '@capitania/shared';
 
 type Manager = 'brew' | 'docker';
 

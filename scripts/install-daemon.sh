@@ -1,25 +1,36 @@
 #!/bin/bash
 #
-# Instala PuertosView como LaunchAgent: arranca solo al iniciar sesión y queda
+# Instala Capitanía como LaunchAgent: arranca solo al iniciar sesión y queda
 # siempre disponible en http://localhost:7788.
 #
-#   ./scripts/install-daemon.sh            instala (o reinstala) y arranca
+#   ./scripts/install-daemon.sh              instala (o reinstala) y arranca
+#   ./scripts/install-daemon.sh --restart    reinicia (apaga los proyectos que lanzó)
+#   ./scripts/install-daemon.sh --logs       sigue el log en vivo
 #   ./scripts/install-daemon.sh --uninstall  descarga el agente y borra el plist
 #
 set -euo pipefail
 
-LABEL="pe.jsoluciones.puertosview"
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+source "$REPO/scripts/config.sh"
+LABEL="$BUNDLE_ID"
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
-LOG_DIR="$HOME/Library/Logs/PuertosView"
-DOMAIN="gui/$(id -u)"
 
-if [[ "${1:-}" == "--uninstall" ]]; then
-  launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
-  rm -f "$PLIST"
-  echo "✔ PuertosView desinstalado del arranque. Los logs siguen en $LOG_DIR"
-  exit 0
-fi
+case "${1:-}" in
+  --uninstall)
+    launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
+    rm -f "$PLIST"
+    echo "✔ $APP_NAME desinstalado del arranque. Los logs siguen en $LOG_DIR"
+    exit 0
+    ;;
+  --restart)
+    launchctl kickstart -k "$DOMAIN/$LABEL"
+    echo "✔ $APP_NAME reiniciado"
+    exit 0
+    ;;
+  --logs)
+    exec tail -f "$LOG_FILE"
+    ;;
+esac
 
 # launchd no hereda el PATH del shell: hay que darle la ruta absoluta de node.
 NODE_BIN="$(command -v node || true)"
@@ -62,6 +73,8 @@ cat > "$PLIST" <<PLIST_EOF
     <string>$NODE_DIR:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
     <key>NODE_ENV</key>
     <string>production</string>
+    <key>CAPITANIA_PORT</key>
+    <string>$PORT</string>
   </dict>
 
   <key>RunAtLoad</key>
@@ -73,9 +86,9 @@ cat > "$PLIST" <<PLIST_EOF
   </dict>
 
   <key>StandardOutPath</key>
-  <string>$LOG_DIR/puertosview.log</string>
+  <string>$LOG_FILE</string>
   <key>StandardErrorPath</key>
-  <string>$LOG_DIR/puertosview.error.log</string>
+  <string>$ERROR_LOG_FILE</string>
 
   <key>ProcessType</key>
   <string>Interactive</string>
@@ -92,17 +105,17 @@ launchctl enable "$DOMAIN/$LABEL"
 # tsx transpila el servidor en el primer arranque; en frío puede tardar ~15s.
 echo "▸ Esperando a que levante..."
 for _ in $(seq 1 60); do
-  if curl -fsS -o /dev/null http://127.0.0.1:7788/api/state 2>/dev/null; then
+  if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/api/state" 2>/dev/null; then
     echo
-    echo "✔ PuertosView corriendo en http://localhost:7788"
-    echo "  Logs:       $LOG_DIR/puertosview.log"
-    echo "  Reiniciar:  launchctl kickstart -k $DOMAIN/$LABEL"
-    echo "  Quitar:     ./scripts/install-daemon.sh --uninstall"
+    echo "✔ $APP_NAME corriendo en http://localhost:$PORT"
+    echo "  Logs:       npm run daemon:logs"
+    echo "  Reiniciar:  npm run daemon:restart"
+    echo "  Quitar:     npm run daemon:uninstall"
     exit 0
   fi
   sleep 0.4
 done
 
-echo "✖ No respondió en 30s. Revisa $LOG_DIR/puertosview.error.log" >&2
+echo "✖ No respondió en 30s. Revisa $ERROR_LOG_FILE" >&2
 echo "  Estado del agente: launchctl print $DOMAIN/$LABEL" >&2
 exit 1

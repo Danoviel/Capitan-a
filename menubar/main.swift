@@ -1,4 +1,4 @@
-// PuertosView — ícono de barra de menú.
+// Capitanía — ícono de barra de menú.
 //
 // No duplica lógica: es un cliente más de la misma API en :7788 que consume el
 // dashboard web. Muestra cuántos proyectos están encendidos y permite prender o
@@ -31,7 +31,7 @@ struct Snapshot: Decodable {
 }
 
 extension ProjectEntry {
-  /// Encendido por PuertosView (o en camino de estarlo).
+  /// Encendido por Capitanía (o en camino de estarlo).
   var isUp: Bool { state.status == "running" || state.status == "starting" }
   /// Necesita atención: crasheó o alguien más tiene el puerto.
   var isWarning: Bool { state.status == "crashed" || state.status == "external" }
@@ -47,7 +47,7 @@ extension ProjectEntry {
 // MARK: - Cliente HTTP
 
 enum API {
-  static let port = ProcessInfo.processInfo.environment["PUERTOSVIEW_PORT"] ?? "7788"
+  static let port = ProcessInfo.processInfo.environment["CAPITANIA_PORT"] ?? "7788"
   static var base: String { "http://127.0.0.1:\(port)" }
 
   static func fetchState(completion: @escaping (Snapshot?) -> Void) {
@@ -91,7 +91,7 @@ final class MenuBarController: NSObject, NSMenuDelegate {
 
     if let button = statusItem.button {
       button.image = NSImage(
-        systemSymbolName: "powerplug.fill", accessibilityDescription: "PuertosView")
+        systemSymbolName: "powerplug.fill", accessibilityDescription: "Capitanía")
       button.image?.isTemplate = true
       button.imagePosition = .imageLeading
     }
@@ -116,12 +116,12 @@ final class MenuBarController: NSObject, NSMenuDelegate {
     guard let button = statusItem.button else { return }
     if !reachable {
       button.title = " —"
-      button.toolTip = "PuertosView: el servidor no responde en \(API.base)"
+      button.toolTip = "Capitanía: el servidor no responde en \(API.base)"
       return
     }
     let up = entries.filter(\.isUp).count
     button.title = " \(up)/\(entries.count)"
-    button.toolTip = "PuertosView: \(up) de \(entries.count) proyectos encendidos"
+    button.toolTip = "Capitanía: \(up) de \(entries.count) proyectos encendidos"
   }
 
   // MARK: Construcción del menú
@@ -157,7 +157,7 @@ final class MenuBarController: NSObject, NSMenuDelegate {
       for entry in warnings {
         let item = projectItem(entry, selector: nil)
         item.toolTip = entry.state.status == "external"
-          ? "El puerto lo ocupa un proceso que PuertosView no lanzó"
+          ? "El puerto lo ocupa un proceso que Capitanía no lanzó"
           : "Terminó con error — revisa los logs en el panel"
         menu.addItem(item)
       }
@@ -240,7 +240,7 @@ final class MenuBarController: NSObject, NSMenuDelegate {
   }
 
   @objc private func openDashboard() {
-    let app = URL(fileURLWithPath: "/Applications/PuertosView.app")
+    let app = URL(fileURLWithPath: "/Applications/Capitania.app")
     if FileManager.default.fileExists(atPath: app.path) {
       NSWorkspace.shared.openApplication(at: app, configuration: .init())
     } else if let url = URL(string: API.base) {

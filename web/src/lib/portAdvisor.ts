@@ -4,7 +4,7 @@ import {
   type PortOwner,
   type ProjectConfig,
   type ProjectKind,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 
 /** Rango habitual de cada tipo: así los BE quedan en 80xx, los Vite en 51xx, etc. */
 const RANGES: Record<ProjectKind, [number, number]> = {
@@ -16,8 +16,8 @@ const RANGES: Record<ProjectKind, [number, number]> = {
   custom: [9000, 9099],
 };
 
-/** Puertos del propio PuertosView (API y dashboard en modo dev). */
-const RESERVED_BY_PUERTOSVIEW = [DEFAULT_SERVER_PORT, DEV_DASHBOARD_PORT];
+/** Puertos del propio Capitanía (API y dashboard en modo dev). */
+const RESERVED_BY_CAPITANIA = [DEFAULT_SERVER_PORT, DEV_DASHBOARD_PORT];
 
 export interface PortContext {
   /** Proyecto que se está editando (sus propios puertos no cuentan como ocupados). */
@@ -35,7 +35,7 @@ export type PortStatus =
 
 /** ¿Está libre este puerto? Si no, quién lo tiene. */
 export function portStatus(port: number, ctx: PortContext): PortStatus {
-  if (ctx.protectedPorts.includes(port) || RESERVED_BY_PUERTOSVIEW.includes(port)) {
+  if (ctx.protectedPorts.includes(port) || RESERVED_BY_CAPITANIA.includes(port)) {
     return { kind: 'protected' };
   }
   const reserved = ctx.projects.find((p) => p.port === port && p.id !== ctx.selfId);

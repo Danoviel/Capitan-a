@@ -1,4 +1,4 @@
-import type { LogLine } from '@puertosview/shared';
+import type { LogLine } from '@capitania/shared';
 
 export type Severity = 'debug' | 'info' | 'success' | 'warn' | 'error' | 'system';
 

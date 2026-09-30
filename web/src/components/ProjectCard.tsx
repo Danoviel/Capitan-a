@@ -1,4 +1,4 @@
-import { isUp, type ProjectDiagnosis, type ProjectEntry, type ProjectKind } from '@puertosview/shared';
+import { isUp, type ProjectDiagnosis, type ProjectEntry, type ProjectKind } from '@capitania/shared';
 import { DiagnosisPanel } from './DiagnosisPanel.tsx';
 import { ProjectLinks } from './ProjectLinks.tsx';
 import { StatusBadge } from './StatusBadge.tsx';
@@ -72,7 +72,7 @@ export function ProjectCard({
       {isExternal && state.portOwner && (
         <p className="mt-3 rounded-lg bg-violet-500/10 px-2.5 py-1.5 text-[11px] text-violet-200">
           Ocupado por <span className="font-mono">{state.portOwner.command}</span> (PID{' '}
-          {state.portOwner.pid}) — no lo lanzó PuertosView.
+          {state.portOwner.pid}) — no lo lanzó Capitanía.
         </p>
       )}
 

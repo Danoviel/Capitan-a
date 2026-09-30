@@ -1,9 +1,14 @@
 {
-  "name": "puertosview",
+  "name": "capitania",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Panel local para encender, apagar y vigilar los puertos de todos los proyectos de la Mac",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Danoviel/Capitan-a.git"
+  },
   "workspaces": [
     "shared",
     "server",
@@ -18,8 +23,8 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "daemon:install": "./scripts/install-daemon.sh",
     "daemon:uninstall": "./scripts/install-daemon.sh --uninstall",
-    "daemon:restart": "launchctl kickstart -k gui/$(id -u)/pe.jsoluciones.puertosview",
-    "daemon:logs": "tail -f ~/Library/Logs/PuertosView/puertosview.log"
+    "daemon:restart": "./scripts/install-daemon.sh --restart",
+    "daemon:logs": "./scripts/install-daemon.sh --logs"
   },
   "devDependencies": {
     "concurrently": "^10.0.4"

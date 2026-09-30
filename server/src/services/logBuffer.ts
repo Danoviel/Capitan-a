@@ -1,4 +1,4 @@
-import type { LogLine, LogStream } from '@puertosview/shared';
+import type { LogLine, LogStream } from '@capitania/shared';
 
 const DEFAULT_CAPACITY = 2000;
 

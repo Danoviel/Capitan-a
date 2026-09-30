@@ -8,7 +8,7 @@ import type {
   ProjectConfig,
   ProjectState,
   ProjectStatus,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 import type { LogBuffer } from './logBuffer.ts';
 import type { PortScanner } from './portScanner.ts';
 
@@ -202,7 +202,7 @@ export class ProcessManager extends EventEmitter<ProcessManagerEvents> {
     return this.start(config);
   }
 
-  /** Apagado ordenado de todo al cerrar PuertosView. */
+  /** Apagado ordenado de todo al cerrar Capitanía. */
   async stopAll(): Promise<void> {
     await Promise.all([...this.#processes.keys()].map((id) => this.stop(id)));
   }

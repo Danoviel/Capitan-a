@@ -14,7 +14,7 @@ import type {
   ServerEvent,
   ServiceAction,
   Snapshot,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 import type { ProjectRepository } from '../config/projectRepository.ts';
 import type { LogBuffer } from '../services/logBuffer.ts';
 import type { PortScanner } from '../services/portScanner.ts';

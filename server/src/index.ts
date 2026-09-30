@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { DEFAULT_SERVER_PORT } from '@puertosview/shared';
+import { DEFAULT_SERVER_PORT } from '@capitania/shared';
 import { ProjectRepository } from './config/projectRepository.ts';
 import { LogBuffer } from './services/logBuffer.ts';
 import { PortScanner } from './services/portScanner.ts';
@@ -11,7 +11,7 @@ import { EventHub } from './realtime/eventHub.ts';
 import { createApp } from './http/createApp.ts';
 import { createLocalOriginGuard } from './http/localOriginGuard.ts';
 
-const PORT = Number.parseInt(process.env.PUERTOSVIEW_PORT ?? String(DEFAULT_SERVER_PORT), 10);
+const PORT = Number.parseInt(process.env.CAPITANIA_PORT ?? String(DEFAULT_SERVER_PORT), 10);
 /** Solo loopback: este servidor puede lanzar procesos, no debe salir de la Mac. */
 const HOST = '127.0.0.1';
 
@@ -56,22 +56,22 @@ async function main() {
   supervisor.startWatching();
 
   server.listen(PORT, HOST, () => {
-    console.log(`\n  PuertosView  →  http://${HOST}:${PORT}`);
-    console.log(`  Config       →  ${repo.path}`);
+    console.log(`\n  Capitanía    →  http://${HOST}:${PORT}`);
+    console.log(`  Config       →  ${repo.path}${repo.isNew ? '  (se creará al agregar el primer proyecto)' : ''}`);
     console.log(`  Proyectos    →  ${repo.all().length}\n`);
   });
 
   server.on('error', (error: NodeJS.ErrnoException) => {
     if (error.code === 'EADDRINUSE') {
       console.error(
-        `✖ El puerto ${PORT} ya está ocupado. Usa PUERTOSVIEW_PORT=otro para cambiarlo.`,
+        `✖ El puerto ${PORT} ya está ocupado. Usa CAPITANIA_PORT=otro para cambiarlo.`,
       );
       process.exit(1);
     }
     throw error;
   });
 
-  // Al cerrar PuertosView se apagan también los proyectos que lanzó: dejarlos
+  // Al cerrar Capitanía se apagan también los proyectos que lanzó: dejarlos
   // huérfanos significaría puertos ocupados sin panel que los controle.
   let closing = false;
   const shutdown = async (signal: string) => {

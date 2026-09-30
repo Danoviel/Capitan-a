@@ -1,4 +1,4 @@
-import type { DiagnosisLevel, ProjectDiagnosis } from '@puertosview/shared';
+import type { DiagnosisLevel, ProjectDiagnosis } from '@capitania/shared';
 
 const PRESET: Record<DiagnosisLevel, { label: string; icon: string; pill: string; text: string }> = {
   ok: {

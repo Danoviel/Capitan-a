@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { api } from '../api/client.ts';
-import type { LogLine, ProjectEntry, ServerEvent, Snapshot } from '@puertosview/shared';
+import type { LogLine, ProjectEntry, ServerEvent, Snapshot } from '@capitania/shared';
 
 /** Máximo de líneas de log que el navegador guarda por proyecto. */
 const LOG_LIMIT = 2000;

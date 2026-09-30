@@ -1,4 +1,4 @@
-import type { ProjectStatus } from '@puertosview/shared';
+import type { ProjectStatus } from '@capitania/shared';
 
 const PRESET: Record<ProjectStatus, { label: string; dot: string; text: string; ring: string }> = {
   running: {

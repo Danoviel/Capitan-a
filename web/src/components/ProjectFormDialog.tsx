@@ -13,7 +13,7 @@ import {
   type ProjectConfig,
   type ProjectKind,
   type ProjectLink,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 
 /**
  * Estado del formulario. Todo se maneja como texto porque los `<input>` lo son:
@@ -311,7 +311,7 @@ export function ProjectFormDialog({
           <div className="grid gap-4 sm:grid-cols-2">
             <Field
               label="Id"
-              hint={isEdit ? 'No se puede cambiar' : 'altoke-be, domo-fe...'}
+              hint={isEdit ? 'No se puede cambiar' : 'tienda-be, blog-fe...'}
               error={submitted ? errors.id : undefined}
             >
               <input
@@ -340,7 +340,7 @@ export function ProjectFormDialog({
               <input
                 value={values.group}
                 onChange={(event) => set('group', event.target.value)}
-                placeholder="Altoke"
+                placeholder="Mi Tienda"
                 list={`${formId}-groups`}
                 className={INPUT}
               />
@@ -369,7 +369,7 @@ export function ProjectFormDialog({
             <input
               value={values.cwd}
               onChange={(event) => set('cwd', event.target.value)}
-              placeholder="~/Documents/JSoluciones/MiProyecto/MiProyecto-BE"
+              placeholder="~/Proyectos/mi-tienda/backend"
               className={`${INPUT} font-mono text-[11px]`}
             />
           </Field>
@@ -425,7 +425,7 @@ export function ProjectFormDialog({
                 <span className="mt-1 block text-[11px] text-amber-300">
                   {conflict.kind === 'reserved' && `Ya está reservado para ${conflict.by}.`}
                   {conflict.kind === 'in-use' && `Ahora mismo lo está usando ${conflict.by}.`}
-                  {conflict.kind === 'protected' && 'Es un puerto protegido (BD, Redis, PuertosView...).'}
+                  {conflict.kind === 'protected' && 'Es un puerto protegido (BD, Redis, Capitanía...).'}
                 </span>
               )}
               {conflict?.kind === 'free' && (
@@ -481,7 +481,7 @@ export function ProjectFormDialog({
               value={values.notes}
               onChange={(event) => set('notes', event.target.value)}
               rows={2}
-              placeholder="Depende del contenedor st_dev_db (:5433)."
+              placeholder="Necesita Postgres corriendo (:5432)."
               className={`${INPUT} resize-y`}
             />
           </Field>

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../api/client.ts';
-import type { ProjectDiagnosis, Snapshot } from '@puertosview/shared';
+import type { ProjectDiagnosis, Snapshot } from '@capitania/shared';
 
 /**
- * Diagnóstico de cada proyecto (¿está bien enganchado con PuertosView?).
+ * Diagnóstico de cada proyecto (¿está bien enganchado con Capitanía?).
  *
  * El servidor lee archivos de cada repo para calcularlo, así que no se pide en
  * cada tick del WebSocket: solo cuando cambia algo que puede alterar el resultado

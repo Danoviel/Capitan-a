@@ -9,7 +9,7 @@ import type {
   ProjectState,
   ServiceAction,
   Snapshot,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`/api${path}`, {

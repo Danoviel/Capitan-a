@@ -11,12 +11,12 @@ export function isValidPort(port: number): boolean {
   return Number.isInteger(port) && port >= MIN_PORT && port <= MAX_PORT;
 }
 
-/** Encendido por PuertosView o en camino de estarlo. */
+/** Encendido por Capitanía o en camino de estarlo. */
 export function isUp(status: ProjectStatus): boolean {
   return status === 'running' || status === 'starting';
 }
 
-/** Tiene un proceso lanzado por PuertosView, aunque se esté apagando: no se puede eliminar. */
+/** Tiene un proceso lanzado por Capitanía, aunque se esté apagando: no se puede eliminar. */
 export function hasLiveProcess(status: ProjectStatus): boolean {
   return isUp(status) || status === 'stopping';
 }

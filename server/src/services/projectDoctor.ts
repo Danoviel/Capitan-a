@@ -11,7 +11,7 @@ import {
   type ProjectConfig,
   type ProjectDiagnosis,
   type ProjectState,
-} from '@puertosview/shared';
+} from '@capitania/shared';
 
 /** Orden de carga de Vite y Next: cada archivo pisa las claves del anterior. */
 const ENV_FILES = ['.env', '.env.development', '.env.local', '.env.development.local'];
@@ -48,7 +48,7 @@ interface FrontendRefs {
 }
 
 /**
- * Revisa si cada proyecto está realmente enganchado con PuertosView: que el
+ * Revisa si cada proyecto está realmente enganchado con Capitanía: que el
  * comando fije el puerto, que el FE apunte al puerto de su BE, que el CORS lo
  * acepte, y que nadie más esté usando su puerto.
  *
@@ -229,7 +229,7 @@ function checkRuntime(
       checks.push({
         level: 'warn',
         message:
-          'Está corriendo por fuera (terminal o VSCode): PuertosView no ve sus logs ni puede reiniciarlo limpio',
+          'Está corriendo por fuera (terminal o VSCode): Capitanía no ve sus logs ni puede reiniciarlo limpio',
       });
     } else if (ownerProject) {
       checks.push({
@@ -251,7 +251,7 @@ function checkRuntime(
   for (const owner of elsewhere) {
     checks.push({
       level: 'warn',
-      message: `Está corriendo por fuera en :${owner.port}, pero PuertosView lo espera en :${config.port ?? '(sin puerto)'}`,
+      message: `Está corriendo por fuera en :${owner.port}, pero Capitanía lo espera en :${config.port ?? '(sin puerto)'}`,
     });
   }
   return checks;

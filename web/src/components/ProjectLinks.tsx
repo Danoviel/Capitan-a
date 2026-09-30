@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BACKEND_KINDS, type ProjectConfig } from '@puertosview/shared';
+import { BACKEND_KINDS, type ProjectConfig } from '@capitania/shared';
 
 interface Props {
   config: ProjectConfig;

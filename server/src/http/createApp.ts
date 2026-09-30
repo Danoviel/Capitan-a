@@ -7,7 +7,7 @@ import express, {
   type Response,
 } from 'express';
 import { z } from 'zod';
-import { isServiceAction, isValidPort } from '@puertosview/shared';
+import { isServiceAction, isValidPort } from '@capitania/shared';
 import { ROOT_DIR, projectSchema } from '../config/projectRepository.ts';
 import { ConflictError, NotFoundError, type Supervisor } from '../app/supervisor.ts';
 

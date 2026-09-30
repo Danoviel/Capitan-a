@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useEscape } from '../hooks/useEscape.ts';
 import { SegmentedControl } from './SegmentedControl.tsx';
-import type { LogLine, ProjectEntry } from '@puertosview/shared';
+import type { LogLine, ProjectEntry } from '@capitania/shared';
 import { groupRepeats, parseLog, type LogGroup, type Severity } from '../lib/logParser.ts';
 
 type View = 'all' | 'requests' | 'problems';

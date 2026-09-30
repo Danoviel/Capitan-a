@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { isUp, type PortCategory, type PortOwner, type ProjectEntry, type Snapshot } from '@puertosview/shared';
+import { isUp, type PortCategory, type PortOwner, type ProjectEntry, type Snapshot } from '@capitania/shared';
 
 interface Props {
   snapshot: Snapshot;
@@ -24,13 +24,13 @@ const SECTIONS: Section[] = [
   {
     category: 'dev',
     title: 'Desarrollo sin registrar',
-    hint: 'Servidores en tus carpetas que PuertosView todavía no conoce.',
+    hint: 'Servidores en tus carpetas que Capitanía todavía no conoce.',
     canKill: true,
   },
   {
     category: 'protected',
     title: 'Protegidos',
-    hint: 'Infraestructura (BD, Redis, Docker, adb, PuertosView). Se gestionan en Servicios.',
+    hint: 'Infraestructura (BD, Redis, Docker, adb, Capitanía). Se gestionan en Servicios.',
     canKill: false,
   },
   {
@@ -47,7 +47,7 @@ const shortPath = (path: string) => path.replace(/^\/Users\/[^/]+/, '~');
 /**
  * Todos los puertos en LISTEN de la Mac, divididos por para qué se usan. El
  * proyecto sale de la carpeta del proceso, no del número de puerto: uno prendido
- * por fuera puede estar ocupando el puerto que PuertosView reservó para otro.
+ * por fuera puede estar ocupando el puerto que Capitanía reservó para otro.
  */
 export function PortsPanel({ snapshot, onKill }: Props) {
   const projectsById = useMemo(
@@ -148,7 +148,7 @@ export function PortsPanel({ snapshot, onKill }: Props) {
   );
 }
 
-/** Nombre del proyecto y cómo está corriendo: por PuertosView, por fuera o fuera de su puerto. */
+/** Nombre del proyecto y cómo está corriendo: por Capitanía, por fuera o fuera de su puerto. */
 function ProjectCell({ owner, entry }: { owner: PortOwner; entry: ProjectEntry | undefined }) {
   if (!entry) return <span className="text-slate-500">{owner.projectId}</span>;
   const managed = isUp(entry.state.status);
@@ -160,7 +160,7 @@ function ProjectCell({ owner, entry }: { owner: PortOwner; entry: ProjectEntry |
       {wrongPort ? (
         <span className="ml-1.5 text-amber-300">• fuera de su puerto (espera :{entry.config.port})</span>
       ) : managed ? (
-        <span className="ml-1.5 text-emerald-400">• PuertosView</span>
+        <span className="ml-1.5 text-emerald-400">• Capitanía</span>
       ) : (
         <span className="ml-1.5 text-slate-500">• por fuera</span>
       )}

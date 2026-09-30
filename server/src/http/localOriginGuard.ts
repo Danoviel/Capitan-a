@@ -1,6 +1,6 @@
 import type { IncomingMessage } from 'node:http';
 import type { NextFunction, Request, Response } from 'express';
-import { DEV_DASHBOARD_PORT } from '@puertosview/shared';
+import { DEV_DASHBOARD_PORT } from '@capitania/shared';
 
 /**
  * Candado contra páginas web ajenas.

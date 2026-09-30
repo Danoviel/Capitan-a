@@ -9,7 +9,7 @@ import { PortsPanel } from './components/PortsPanel.tsx';
 import { ServicesPanel } from './components/ServicesPanel.tsx';
 import { ProjectFormDialog } from './components/ProjectFormDialog.tsx';
 import { SegmentedControl } from './components/SegmentedControl.tsx';
-import { hasLiveProcess, isUp, type ProjectConfig, type ProjectEntry } from '@puertosview/shared';
+import { hasLiveProcess, isUp, type ProjectConfig, type ProjectEntry } from '@capitania/shared';
 
 type Tab = 'projects' | 'ports' | 'services';
 
@@ -32,7 +32,7 @@ export function App() {
   const [editing, setEditing] = useState<Editing>(null);
   const [health, setHealth] = useState<HealthFilter>('all');
   const diagnoses = useDiagnostics(snapshot);
-  const logWidth = useResizableWidth('puertosview.logPanelWidth', 544);
+  const logWidth = useResizableWidth('capitania.logPanelWidth', 544);
 
   /** Marca un proyecto como ocupado mientras dura su acción, para bloquear el doble click. */
   const withBusy = useCallback(
@@ -123,7 +123,7 @@ export function App() {
       <header className="flex flex-wrap items-center gap-3 border-b border-slate-800 bg-slate-900/50 px-5 py-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">🔌</span>
-          <h1 className="text-sm font-semibold tracking-tight text-slate-100">PuertosView</h1>
+          <h1 className="text-sm font-semibold tracking-tight text-slate-100">Capitanía</h1>
           <ConnectionDot connection={connection} />
         </div>
 

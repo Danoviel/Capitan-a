@@ -14,7 +14,7 @@ export const FRONTEND_KINDS: readonly ProjectKind[] = ['vite', 'next', 'angular'
 /** Id de un proyecto: va en URLs, así que solo minúsculas, números y guiones. */
 export const PROJECT_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/;
 
-/** Puerto del servidor de PuertosView (API + dashboard compilado). */
+/** Puerto del servidor de Capitanía (API + dashboard compilado). */
 export const DEFAULT_SERVER_PORT = 7788;
 /** Puerto del dashboard en `npm run dev`, que proxea al servidor. */
 export const DEV_DASHBOARD_PORT = 5190;

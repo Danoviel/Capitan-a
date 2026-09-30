@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import type { BrewServiceInfo, DockerContainerInfo, ServiceAction } from '@puertosview/shared';
+import type { BrewServiceInfo, DockerContainerInfo, ServiceAction } from '@capitania/shared';
 
 const run = promisify(execFile);
 

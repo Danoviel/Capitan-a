@@ -1,6 +1,6 @@
 import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import type { FolderInfo, ProjectKind } from '@puertosview/shared';
+import type { FolderInfo, ProjectKind } from '@capitania/shared';
 import { realPath } from '../shared/paths.ts';
 
 /** El primer archivo que aparece decide el tipo: el orden importa (un Next también tiene package.json). */

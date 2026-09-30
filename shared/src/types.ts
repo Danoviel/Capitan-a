@@ -10,7 +10,7 @@ export interface ProjectConfig {
   /** Identificador estable y único. Se usa en URLs y en el WebSocket. */
   id: string;
   name: string;
-  /** Agrupador visual: normalmente el producto (Altoke, Domo, Ginebra...). */
+  /** Agrupador visual: normalmente el producto (su BE y su FE van juntos). */
   group: string;
   kind: ProjectKind;
   /** Ruta absoluta desde donde se ejecuta el comando. */
@@ -41,15 +41,15 @@ export interface ProjectLink {
 export type ProjectStatus =
   /** Apagado y sin nadie ocupando su puerto. */
   | 'stopped'
-  /** Lanzado por PuertosView, esperando a que el puerto responda. */
+  /** Lanzado por Capitanía, esperando a que el puerto responda. */
   | 'starting'
-  /** Lanzado por PuertosView y vivo. */
+  /** Lanzado por Capitanía y vivo. */
   | 'running'
   /** Se pidió apagarlo, esperando que muera el árbol de procesos. */
   | 'stopping'
-  /** Lanzado por PuertosView pero terminó con código != 0. */
+  /** Lanzado por Capitanía pero terminó con código != 0. */
   | 'crashed'
-  /** El puerto está ocupado por un proceso que PuertosView no lanzó. */
+  /** El puerto está ocupado por un proceso que Capitanía no lanzó. */
   | 'external';
 
 /** Proceso que tiene un puerto en LISTEN, según lsof. */
@@ -126,7 +126,7 @@ export interface DiagnosisCheck {
   message: string;
 }
 
-/** Qué tan bien está enganchado un proyecto con PuertosView (config + realidad). */
+/** Qué tan bien está enganchado un proyecto con Capitanía (config + realidad). */
 export interface ProjectDiagnosis {
   id: string;
   level: DiagnosisLevel;

@@ -1,4 +1,4 @@
-// Genera el AppIcon.icns de PuertosView sin depender de un diseñador ni de
+// Genera el AppIcon.icns de Capitanía sin depender de un diseñador ni de
 // herramientas externas: dibuja el enchufe sobre el mismo fondo oscuro del
 // dashboard usando AppKit, y deja los PNG en un .iconset listo para iconutil.
 //
@@ -7,7 +7,7 @@
 import AppKit
 import Foundation
 
-let outputDir = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "./PuertosView.iconset"
+let outputDir = CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "./Capitania.iconset"
 try? FileManager.default.createDirectory(
   atPath: outputDir, withIntermediateDirectories: true)
 
