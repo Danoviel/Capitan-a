@@ -24,26 +24,47 @@ Así como la capitanía de un puerto decide en qué muelle atraca cada barco y a
 
 - macOS 13 o superior
 - [Node.js](https://nodejs.org) 20 o superior
+- git (si no lo tienes, `xcode-select --install` lo instala junto con las herramientas de Xcode)
 - Opcional: Xcode Command Line Tools (`xcode-select --install`), solo si quieres el ícono de la barra de menú o la app en `/Applications`
 - Opcional: Homebrew y/o Docker, si quieres manejar sus servicios desde el panel
 
 ## Instalación
 
+Un solo comando en la Terminal:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Danoviel/Capitan-a/main/install.sh | bash
+```
+
+Descarga Capitanía en `~/Capitania`, revisa los requisitos, instala las dependencias, lo deja como servicio que arranca solo al iniciar sesión, pone **Capitania.app** en `/Applications` y abre el panel en **http://localhost:7788**.
+
+¿Prefieres ver el código antes de ejecutarlo? Clónalo y usa el mismo instalador:
+
 ```bash
 git clone https://github.com/Danoviel/Capitan-a.git capitania
 cd capitania
-npm install
-npm run daemon:install
+./install.sh
 ```
 
-Abre **http://localhost:7788**. El servidor queda instalado como servicio de tu usuario: arranca solo al iniciar sesión.
+| Opción | Qué hace |
+|---|---|
+| `--menubar` | Instala también el ícono de la barra de menú |
+| `--sin-servicio` | No lo deja arrancando al iniciar sesión; lo levantas tú con `npm start` |
 
-Opcional:
+Con `curl`, las opciones van después de `bash -s --`, por ejemplo: `curl -fsSL … | bash -s -- --menubar`.
+
+Para actualizar, vuelve a correr el instalador: hace `git pull` y reinstala. Ojo: al reiniciar el servicio se apagan los proyectos que tenía encendidos.
+
+### Desinstalar
 
 ```bash
-./scripts/build-app.sh --install      # Capitania.app en /Applications (búscala con ⌘+Espacio)
-./scripts/build-menubar.sh --install  # ícono en la barra de menú
+cd ~/Capitania                      # o donde lo hayas clonado
+npm run daemon:uninstall            # quita el servicio
+./scripts/build-menubar.sh --uninstall   # si instalaste el ícono
+rm -rf /Applications/Capitania.app ~/Library/Logs/Capitania
 ```
+
+Después puedes borrar la carpeta del repo. Tus proyectos no se tocan: Capitanía nunca modifica sus archivos.
 
 ## Agregar tus proyectos
 
@@ -85,8 +106,6 @@ También puedes escribirlo a mano partiendo de [`projects.example.json`](project
 | `npm run daemon:logs` | Sigue el log del servidor en vivo |
 | `npm run daemon:uninstall` | Quita el servicio del arranque |
 | `npm run typecheck` | Chequeo de tipos de los tres paquetes |
-
-Para actualizar: `git pull && npm install && npm run daemon:install`.
 
 ## Seguridad
 
