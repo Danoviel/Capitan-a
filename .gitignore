@@ -1,5 +1,7 @@
 node_modules/
 dist/
+# Apps compiladas por scripts/: llevan rutas de la máquina donde se construyen.
+build/
 .DS_Store
 *.log
 
